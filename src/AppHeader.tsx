@@ -16,6 +16,7 @@ import Box from "@mui/material/Box";
 import MenuIcon from "@mui/icons-material/Menu";
 import React from "react";
 import { useAuth0 } from "@auth0/auth0-react";
+import LoginIcon from "@mui/icons-material/Login";
 
 interface AppHeaderProps {
   pages: Page[];
@@ -23,7 +24,7 @@ interface AppHeaderProps {
 }
 
 function AppHeader({ pages, smallScreen }: AppHeaderProps) {
-  const { isAuthenticated, loginWithRedirect, logout } = useAuth0();
+  const { user, isAuthenticated, loginWithRedirect, logout } = useAuth0();
 
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
     null
@@ -142,39 +143,51 @@ function AppHeader({ pages, smallScreen }: AppHeaderProps) {
               </Box>
             </>
           )}
-
           <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Derpity Derp" src="/static/images/avatar/2.jpg" />
-              </IconButton>
-            </Tooltip>
-            <Menu
-              sx={{ mt: "45px" }}
-              id="menu-appbar"
-              anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
-            >
-              {isAuthenticated ? (
-                <MenuItem
-                  onClick={() => logout({ returnTo: window.location.origin })}
+            {isAuthenticated ? (
+              <>
+                {user?.name}
+                <Tooltip title="Open settings">
+                  <IconButton
+                    onClick={handleOpenUserMenu}
+                    sx={{ p: 0, paddingLeft: "10px" }}
+                  >
+                    <Avatar src={user?.picture} alt={user?.name} />
+                  </IconButton>
+                </Tooltip>
+                <Menu
+                  sx={{ mt: "45px" }}
+                  id="menu-appbar"
+                  anchorEl={anchorElUser}
+                  anchorOrigin={{
+                    vertical: "top",
+                    horizontal: "right",
+                  }}
+                  keepMounted
+                  transformOrigin={{
+                    vertical: "top",
+                    horizontal: "right",
+                  }}
+                  open={Boolean(anchorElUser)}
+                  onClose={handleCloseUserMenu}
                 >
-                  Logout
-                </MenuItem>
-              ) : (
-                <MenuItem onClick={() => loginWithRedirect()}>Login</MenuItem>
-              )}
-            </Menu>
+                  <MenuItem
+                    onClick={() => logout({ returnTo: window.location.origin })}
+                  >
+                    Logout
+                  </MenuItem>
+                </Menu>
+              </>
+            ) : (
+              <Button
+                variant="outlined"
+                startIcon={<LoginIcon />}
+                color={"inherit"}
+                onClick={() => loginWithRedirect()}
+              >
+                Login
+              </Button>
+            )}
           </Box>
         </Toolbar>
       </Container>
