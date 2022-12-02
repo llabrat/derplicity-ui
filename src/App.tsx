@@ -4,18 +4,29 @@ import { useMediaQuery, useTheme } from "@mui/material";
 import AppHeader from "./AppHeader";
 import axios from "axios";
 import Article, { ArticleProps } from "./Article";
+import { useAuth0 } from "@auth0/auth0-react";
 
 export interface Page {
   name: string;
 }
 
+const Profile = () => {
+  const { user, isAuthenticated, isLoading } = useAuth0();
+
+  if (isLoading) {
+    return <div>Loading ...</div>;
+  }
+
+  return isAuthenticated ? (
+    <div>
+      <img src={user?.picture} alt={user?.name} />
+      <h2>{user?.name}</h2>
+      <p>{user?.email}</p>
+    </div>
+  ) : null;
+};
+
 export const PAGES: Page[] = [{ name: "Blog" }, { name: "Test" }];
-export const SETTINGS: Page[] = [
-  { name: "Profile" },
-  { name: "Account" },
-  { name: "Dashboard" },
-  { name: "Logout" },
-];
 
 function App() {
   const theme = useTheme();
@@ -32,16 +43,13 @@ function App() {
   return (
     <Grid2 container direction={"column"}>
       <Grid2>
-        <AppHeader
-          pages={PAGES}
-          settings={SETTINGS}
-          smallScreen={smallScreen}
-        />
+        <AppHeader pages={PAGES} smallScreen={smallScreen} />
       </Grid2>
       <Grid2 display="flex" justifyContent="center" alignItems="center">
         {articles.map((article) => (
           <Article content={article.content} />
         ))}
+        <Profile />
       </Grid2>
     </Grid2>
   );

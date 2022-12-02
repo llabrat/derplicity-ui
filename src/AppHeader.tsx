@@ -15,14 +15,16 @@ import RocketLaunchIcon from "@mui/icons-material/RocketLaunch";
 import Box from "@mui/material/Box";
 import MenuIcon from "@mui/icons-material/Menu";
 import React from "react";
+import { useAuth0 } from "@auth0/auth0-react";
 
 interface AppHeaderProps {
   pages: Page[];
-  settings: Page[];
   smallScreen: boolean;
 }
 
-function AppHeader({ pages, settings, smallScreen }: AppHeaderProps) {
+function AppHeader({ pages, smallScreen }: AppHeaderProps) {
+  const { isAuthenticated, loginWithRedirect, logout } = useAuth0();
+
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
     null
   );
@@ -163,11 +165,15 @@ function AppHeader({ pages, settings, smallScreen }: AppHeaderProps) {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              {settings.map((setting) => (
-                <MenuItem key={setting.name} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting.name}</Typography>
+              {isAuthenticated ? (
+                <MenuItem
+                  onClick={() => logout({ returnTo: window.location.origin })}
+                >
+                  Logout
                 </MenuItem>
-              ))}
+              ) : (
+                <MenuItem onClick={() => loginWithRedirect()}>Login</MenuItem>
+              )}
             </Menu>
           </Box>
         </Toolbar>
