@@ -3,11 +3,10 @@ version = 1
 [[analyzers]]
 name = "javascript"
 enabled = true
-
-[analyzers.meta]
-plugins = ["react"]
-
 test_patterns = [
     "**/test/**",
     "**/*.test.*"
 ]
+
+[analyzers.meta]
+plugins = ["react"]
