@@ -1,22 +1,19 @@
-import { Page } from "./App";
+import { Page } from "../MainPage/MainPage";
 import {
   AppBar,
-  Avatar,
   Button,
   Container,
   IconButton,
   Menu,
   MenuItem,
   Toolbar,
-  Tooltip,
   Typography,
 } from "@mui/material";
 import RocketLaunchIcon from "@mui/icons-material/RocketLaunch";
 import Box from "@mui/material/Box";
 import MenuIcon from "@mui/icons-material/Menu";
 import React from "react";
-import { useAuth0 } from "@auth0/auth0-react";
-import LoginIcon from "@mui/icons-material/Login";
+import { UserMenu } from "../UserMenu/UserMenu";
 
 interface AppHeaderProps {
   pages: Page[];
@@ -24,28 +21,16 @@ interface AppHeaderProps {
 }
 
 function AppHeader({ pages, smallScreen }: AppHeaderProps) {
-  const { user, isAuthenticated, loginWithRedirect, logout } = useAuth0();
-
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
-    null
-  );
-  const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
     null
   );
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
   };
-  const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorElUser(event.currentTarget);
-  };
 
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
-  };
-
-  const handleCloseUserMenu = () => {
-    setAnchorElUser(null);
   };
 
   return (
@@ -143,52 +128,7 @@ function AppHeader({ pages, smallScreen }: AppHeaderProps) {
               </Box>
             </>
           )}
-          <Box sx={{ flexGrow: 0 }}>
-            {isAuthenticated ? (
-              <>
-                {user?.name}
-                <Tooltip title="Open settings">
-                  <IconButton
-                    onClick={handleOpenUserMenu}
-                    sx={{ p: 0, paddingLeft: "10px" }}
-                  >
-                    <Avatar src={user?.picture} alt={user?.name} />
-                  </IconButton>
-                </Tooltip>
-                <Menu
-                  sx={{ mt: "45px" }}
-                  id="menu-appbar"
-                  anchorEl={anchorElUser}
-                  anchorOrigin={{
-                    vertical: "top",
-                    horizontal: "right",
-                  }}
-                  keepMounted
-                  transformOrigin={{
-                    vertical: "top",
-                    horizontal: "right",
-                  }}
-                  open={Boolean(anchorElUser)}
-                  onClose={handleCloseUserMenu}
-                >
-                  <MenuItem
-                    onClick={() => logout({ returnTo: window.location.origin })}
-                  >
-                    Logout
-                  </MenuItem>
-                </Menu>
-              </>
-            ) : (
-              <Button
-                variant="outlined"
-                startIcon={<LoginIcon />}
-                color={"inherit"}
-                onClick={() => loginWithRedirect()}
-              >
-                Login
-              </Button>
-            )}
-          </Box>
+          <UserMenu />
         </Toolbar>
       </Container>
     </AppBar>

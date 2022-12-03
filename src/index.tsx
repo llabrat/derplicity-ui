@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import App from "./App";
+import MainPage from "./components/MainPage/MainPage";
 import reportWebVitals from "./reportWebVitals";
 import CssBaseline from "@mui/material/CssBaseline";
 import { Auth0Provider } from "@auth0/auth0-react";
@@ -17,7 +17,7 @@ root.render(
       redirectUri={window.location.origin}
     >
       <CssBaseline />
-      <App />
+      <MainPage />
     </Auth0Provider>
   </React.StrictMode>
 );

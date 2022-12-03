@@ -1,6 +1,6 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
-import App, { PAGES } from "./App";
+import MainPage, { PAGES } from "./MainPage";
 
 const mediaQuery = require("css-mediaquery");
 
@@ -24,14 +24,14 @@ function setScreenWidthMediaMatcher(width: number) {
 
 describe("AppHeader", () => {
   it("renders title", async () => {
-    render(<App />);
+    render(<MainPage />);
     const title = await screen.findByText(/DERPLICITY/i);
     expect(title).toBeInTheDocument();
   });
 
   it("shows page links on screens at least 900px wide", () => {
     setScreenWidthMediaMatcher(900);
-    render(<App />);
+    render(<MainPage />);
 
     PAGES.forEach((page) => {
       const productsButton = screen.getByRole("button", { name: page.name });
@@ -42,7 +42,7 @@ describe("AppHeader", () => {
 
   it("hides page links on screens less than 900 px wide", () => {
     setScreenWidthMediaMatcher(899);
-    render(<App />);
+    render(<MainPage />);
 
     PAGES.forEach((page) => {
       const productsButton = screen.queryByRole("button", { name: page.name });
@@ -53,7 +53,7 @@ describe("AppHeader", () => {
 
   it("fetches articles", async () => {
     setScreenWidthMediaMatcher(900);
-    render(<App />);
+    render(<MainPage />);
 
     const article = await screen.findByText("derp derpity derp derp");
     expect(article).toBeInTheDocument();

@@ -1,11 +1,11 @@
 import { render, screen } from "@testing-library/react";
-import App, { PAGES } from "./App";
+import MainPage, { PAGES } from "../MainPage/MainPage";
 import React from "react";
 import AppHeader from "./AppHeader";
 
 describe("AppHeader", () => {
   it("renders title", async () => {
-    render(<App />);
+    render(<MainPage />);
     const title = await screen.findByText(/DERPLICITY/i);
     expect(title).toBeInTheDocument();
   });
