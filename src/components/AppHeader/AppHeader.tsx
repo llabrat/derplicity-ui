@@ -1,48 +1,36 @@
-import { Page } from "./App";
+import { Page } from "../MainPage/MainPage";
 import {
   AppBar,
-  Avatar,
   Button,
   Container,
   IconButton,
   Menu,
   MenuItem,
   Toolbar,
-  Tooltip,
   Typography,
 } from "@mui/material";
 import RocketLaunchIcon from "@mui/icons-material/RocketLaunch";
 import Box from "@mui/material/Box";
 import MenuIcon from "@mui/icons-material/Menu";
 import React from "react";
+import { UserMenu } from "../UserMenu/UserMenu";
 
 interface AppHeaderProps {
   pages: Page[];
-  settings: Page[];
   smallScreen: boolean;
 }
 
-function AppHeader({ pages, settings, smallScreen }: AppHeaderProps) {
+function AppHeader({ pages, smallScreen }: AppHeaderProps) {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
-    null
-  );
-  const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
     null
   );
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
   };
-  const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorElUser(event.currentTarget);
-  };
 
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
-  };
-
-  const handleCloseUserMenu = () => {
-    setAnchorElUser(null);
   };
 
   return (
@@ -140,36 +128,7 @@ function AppHeader({ pages, settings, smallScreen }: AppHeaderProps) {
               </Box>
             </>
           )}
-
-          <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Derpity Derp" src="/static/images/avatar/2.jpg" />
-              </IconButton>
-            </Tooltip>
-            <Menu
-              sx={{ mt: "45px" }}
-              id="menu-appbar"
-              anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
-            >
-              {settings.map((setting) => (
-                <MenuItem key={setting.name} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting.name}</Typography>
-                </MenuItem>
-              ))}
-            </Menu>
-          </Box>
+          <UserMenu />
         </Toolbar>
       </Container>
     </AppBar>
