@@ -29,8 +29,8 @@ function MainPage() {
         <AppHeader pages={PAGES} smallScreen={smallScreen} />
       </Grid2>
       <Grid2 display="flex" justifyContent="center" alignItems="center">
-        {articles.map((article) => (
-          <Article content={article.content} />
+        {articles.map((article, index) => (
+          <Article content={article.content} key={index} />
         ))}
       </Grid2>
     </Grid2>
