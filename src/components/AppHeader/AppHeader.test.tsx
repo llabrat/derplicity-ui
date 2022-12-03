@@ -21,7 +21,7 @@ describe("AppHeader", () => {
   });
 
   it("hides page links on screens less than 900 px wide", () => {
-    render(<AppHeader smallScreen={true} pages={PAGES} />);
+    render(<AppHeader smallScreen pages={PAGES} />);
 
     PAGES.forEach((page) => {
       const productsButton = screen.queryByRole("button", { name: page.name });

@@ -28,15 +28,15 @@ export function UserMenu() {
 
   return (
     <Box sx={{ flexGrow: 0 }}>
-      {isAuthenticated ? (
+      {isAuthenticated && user ? (
         <>
-          {user!.name}
+          {user.name}
           <Tooltip title="Open user menu">
             <IconButton
               onClick={handleOpenUserMenu}
               sx={{ p: 0, paddingLeft: "10px" }}
             >
-              <Avatar src={user!.picture} alt={user!.name} />
+              <Avatar src={user.picture} alt={user.name} />
             </IconButton>
           </Tooltip>
           <Menu

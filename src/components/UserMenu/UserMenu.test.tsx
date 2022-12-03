@@ -3,6 +3,7 @@ import { UserMenu } from "./UserMenu";
 import { mocked } from "jest-mock";
 import { useAuth0 } from "@auth0/auth0-react";
 import userEvent from "@testing-library/user-event";
+import React from "react";
 
 const user = userEvent.setup();
 
