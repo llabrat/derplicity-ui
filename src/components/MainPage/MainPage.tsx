@@ -3,7 +3,7 @@ import Grid2 from "@mui/material/Unstable_Grid2";
 import { useMediaQuery, useTheme } from "@mui/material";
 import AppHeader from "../AppHeader/AppHeader";
 import axios from "axios";
-import Article, { ArticleProps } from "../Article/Article";
+import Article, { ArticleDTO } from "../Article/Article";
 
 export interface Page {
   name: string;
@@ -15,11 +15,11 @@ function MainPage() {
   const theme = useTheme();
 
   const smallScreen = useMediaQuery(theme.breakpoints.down("md"));
-  const [articles, setArticles] = useState<ArticleProps[]>([]);
+  const [articles, setArticles] = useState<ArticleDTO[]>([]);
 
   useEffect(() => {
     axios
-      .get<ArticleProps[]>("http://localhost:8080/v1/articles")
+      .get<ArticleDTO[]>("http://localhost:8080/v1/articles")
       .then((result) => setArticles(result.data));
   }, []);
 
@@ -29,8 +29,8 @@ function MainPage() {
         <AppHeader pages={PAGES} smallScreen={smallScreen} />
       </Grid2>
       <Grid2 display="flex" justifyContent="center" alignItems="center">
-        {articles.map((article, index) => (
-          <Article content={article.content} key={index} />
+        {articles.map((article) => (
+          <Article content={article.content} key={article.id} />
         ))}
       </Grid2>
     </Grid2>
