@@ -1,0 +1,23 @@
+version: 2.1
+
+orbs:
+  node: circleci/node@5.0.2
+
+jobs:
+  test:
+    executor: node/default
+    steps:
+      - checkout
+      - node/install-packages:
+          pkg-manager: npm
+      - run:
+          command: |
+            npm test -- --coverage --watchAll=false
+            curl https://deepsource.io/cli | sh
+            ./bin/deepsource report --analyzer test-coverage --key javascript --value-file ./coverage/cobertura-coverage.xml
+          name: Run tests
+
+workflows:
+  test-workflow:
+    jobs:
+      - test
