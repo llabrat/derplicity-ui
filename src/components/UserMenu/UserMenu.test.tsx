@@ -37,10 +37,10 @@ describe("Unauthenticated UserMenu", () => {
     });
   });
 
-  it("should render login button", async () => {
+  it("should render login button", () => {
     render(<UserMenu />);
 
-    const loginButton = await screen.getByRole("button", { name: "Login" });
+    const loginButton = screen.getByRole("button", { name: "Login" });
 
     expect(loginButton).toBeVisible();
     expect(loginButton).toBeEnabled();
@@ -49,7 +49,7 @@ describe("Unauthenticated UserMenu", () => {
   it("should call loginWithRedirect when login button clicked", async () => {
     render(<UserMenu />);
 
-    const loginButton = await screen.getByRole("button", { name: "Login" });
+    const loginButton = screen.getByRole("button", { name: "Login" });
 
     await user.click(loginButton);
 
@@ -78,28 +78,28 @@ describe("Authenticated UserMenu", () => {
     });
   });
 
-  it("should not render login button", async () => {
+  it("should not render login button", () => {
     render(<UserMenu />);
 
-    const loginButton = await screen.queryByRole("button", { name: "Login" });
+    const loginButton = screen.queryByRole("button", { name: "Login" });
 
     expect(loginButton).not.toBeInTheDocument();
   });
 
-  it("should render users name", async () => {
+  it("should render users name", () => {
     render(<UserMenu />);
 
-    const userName = await screen.getByText(standardUser.name);
+    const userName = screen.getByText(standardUser.name);
 
     expect(userName).toBeInTheDocument();
   });
 
-  it("should render users avatar", async () => {
+  it("should render users avatar", () => {
     render(<UserMenu />);
 
-    const userAvatar = (await screen.getByRole("img", {
+    const userAvatar = screen.getByRole("img", {
       name: standardUser.name,
-    })) as HTMLImageElement;
+    }) as HTMLImageElement;
 
     expect(userAvatar).toBeInTheDocument();
     expect(userAvatar.src).toEqual(standardUser.picture);
@@ -108,13 +108,13 @@ describe("Authenticated UserMenu", () => {
   it("should render user menu with logout button when clicking avatar", async () => {
     render(<UserMenu />);
 
-    const userAvatar = await screen.getByRole("button", {
+    const userAvatar = screen.getByRole("button", {
       name: "Open user menu",
     });
 
     await user.click(userAvatar);
 
-    const logoutButton = await screen.getByRole("menuitem", { name: "Logout" });
+    const logoutButton = screen.getByRole("menuitem", { name: "Logout" });
 
     expect(logoutButton).toBeVisible();
     expect(logoutButton).toBeEnabled();
@@ -144,13 +144,13 @@ describe("Authenticated UserMenu", () => {
   it("should call logout function when logout button clicked", async () => {
     render(<UserMenu />);
 
-    const userAvatar = await screen.getByRole("button", {
+    const userAvatar = screen.getByRole("button", {
       name: "Open user menu",
     });
 
     await user.click(userAvatar);
 
-    const logoutButton = await screen.getByRole("menuitem", { name: "Logout" });
+    const logoutButton = screen.getByRole("menuitem", { name: "Logout" });
 
     await user.click(logoutButton);
 

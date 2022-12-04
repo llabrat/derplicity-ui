@@ -2,6 +2,7 @@ import React from "react";
 import { render, screen } from "@testing-library/react";
 import MainPage, { PAGES } from "./MainPage";
 
+/* eslint-disable @typescript-eslint/no-var-requires */
 const mediaQuery = require("css-mediaquery"); // skipcq: JS-0359
 
 function setScreenWidthMediaMatcher(width: number) {
