@@ -15,6 +15,7 @@ jobs:
             npm test -- --coverage --watchAll=false
             curl https://deepsource.io/cli | sh
             ./bin/deepsource report --analyzer test-coverage --key javascript --value-file ./coverage/cobertura-coverage.xml
+            bash <(curl -Ls https://coverage.codacy.com/get.sh)
           name: Run tests
 
 workflows:
