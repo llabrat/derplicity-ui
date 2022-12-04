@@ -30,8 +30,12 @@
     "web-vitals": "^2.1.4"
   },
   "jest": {
-    "coverageReporters": ["cobertura"],
-    "collectCoverageFrom": ["./src/**"],
+    "coverageReporters": [
+      "cobertura"
+    ],
+    "collectCoverageFrom": [
+      "./src/**"
+    ],
     "transformIgnorePatterns": [
       "node_modules/(?!axios)/"
     ]
