@@ -1,5 +1,7 @@
 # Getting Started with Create React MainPage
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/df078c0535d14792aa713788a4025bce)](https://app.codacy.com/gh/llabrat/derplicity-ui?utm_source=github.com&utm_medium=referral&utm_content=llabrat/derplicity-ui&utm_campaign=Badge_Grade_Settings)
+
 This project was bootstrapped with [Create React MainPage](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
