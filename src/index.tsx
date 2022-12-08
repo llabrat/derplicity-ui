@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import MainPage from "./components/MainPage/MainPage";
+import { MainPage } from "./components/MainPage/MainPage";
 import reportWebVitals from "./reportWebVitals";
 import CssBaseline from "@mui/material/CssBaseline";
 import { Auth0Provider } from "@auth0/auth0-react";

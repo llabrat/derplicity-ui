@@ -12,7 +12,7 @@ export interface Page {
 
 export const PAGES: Page[] = [{ name: "Blog" }, { name: "Test" }];
 
-function MainPage() {
+export function MainPage() {
   const { getAccessTokenSilently } = useAuth0();
   const theme = useTheme();
 
@@ -45,5 +45,3 @@ function MainPage() {
     </Grid2>
   );
 }
-
-export default MainPage;
