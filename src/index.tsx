@@ -15,6 +15,7 @@ root.render(
       domain="dev-lvordbeezf3wqlh2.us.auth0.com"
       clientId="bxO9IaHBqODagVl5akpFNMnvyznzQlOw"
       redirectUri={window.location.origin}
+      audience={"derplicity-api"}
     >
       <CssBaseline />
       <MainPage />
