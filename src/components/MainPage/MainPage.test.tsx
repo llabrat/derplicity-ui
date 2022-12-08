@@ -1,6 +1,8 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
-import MainPage, { PAGES } from "./MainPage";
+import { MainPage, PAGES } from "./MainPage";
+import { mocked } from "jest-mock";
+import { useAuth0 } from "@auth0/auth0-react";
 
 /* eslint-disable @typescript-eslint/no-var-requires */
 const mediaQuery = require("css-mediaquery"); // skipcq: JS-0359
@@ -23,7 +25,36 @@ function setScreenWidthMediaMatcher(width: number) {
   });
 }
 
+const standardUser = {
+  name: "john doe",
+  picture: "https://example.com/johndoe.jpg",
+};
+
+jest.mock("@auth0/auth0-react");
+
+const mockedUseAuth0 = mocked(useAuth0, true);
+
 describe("AppHeader", () => {
+  const mockGetAccessTokenSilently = jest.fn().mockResolvedValue("TOKEN");
+
+  beforeEach(() => {
+    jest.resetAllMocks();
+    mockedUseAuth0.mockReturnValue({
+      isAuthenticated: true,
+      user: standardUser,
+      logout: jest.fn(),
+      loginWithRedirect: jest.fn(),
+      getAccessTokenWithPopup: jest.fn(),
+      getAccessTokenSilently: mockGetAccessTokenSilently,
+      getIdTokenClaims: jest.fn(),
+      loginWithPopup: jest.fn(),
+      isLoading: false,
+      buildAuthorizeUrl: jest.fn(),
+      buildLogoutUrl: jest.fn(),
+      handleRedirectCallback: jest.fn(),
+    });
+  });
+
   it("renders title", async () => {
     render(<MainPage />);
     const title = await screen.findByText(/DERPLICITY/i);
